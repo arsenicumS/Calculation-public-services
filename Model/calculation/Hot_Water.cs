@@ -27,6 +27,7 @@ namespace Calculation_public_services
             pyment_Water =  Volume.Get_Payment(Volume.Tariff,Volume.Volume_in_month);
             volume_hot =(Volume.Volume_in_month * Convert.ToDecimal(dict_hot["norma"])) ;
             pyment_Hot = Volume.Get_Payment(Convert.ToDecimal(dict_hot["tariff"]),volume_hot);
+            pyment_Hot = Math.Round(pyment_Hot,2);
             volume_hot = Math.Round(volume_hot,5);
 
             rezult = Volume.Set_view_date
@@ -47,6 +48,7 @@ namespace Calculation_public_services
 
             volume_hot = ((volume_in_month - totol_val) * Convert.ToDecimal(dict_hot["norma"]));
             pyment_Hot = Convert.ToDecimal(dict_hot["tariff"])* volume_hot;
+            pyment_Hot = Math.Round(pyment_Hot, 2);
             pyment_Water = Volume.Get_Payment(Volume.Tariff,volume_in_month);
 
             rezult =Volume.Set_view_date
