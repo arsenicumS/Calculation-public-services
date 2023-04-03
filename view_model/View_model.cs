@@ -109,22 +109,33 @@ namespace Calculation_public_services
             }
         }
 
-        public void Period_in_dB(string name_period ,int people,string name_dB = "Month_1" ) 
+        public List<decimal> Period_in_dB(string name_period ,int people,string name_dB = "Month_1" ) 
         {
             Overall_calculation overall_Calculation = new Overall_calculation(name_dB, people);
                 overall_Calculation.Period(name_period);
+            return Return_vale_old();
         }
 
         public List<decimal> Return_vale_old() 
         {
             List<decimal> return_vale_ = new List<decimal>{ };
 
-            for (var n = 1; n < 4; n++) 
+            for (var n = 1; n < 4; n++)
             {
                 decimal val = 0;
-                All_Volume all_= new All_Volume(n);
-                all_.Get_Volume_Total_dB(n,out val);
-                return_vale_.Add(val);
+                All_Volume all_ = new All_Volume(n);
+                if (n == 2 && electric_night!=null)
+                {
+                    all_.Get_Volume_Total_dB(n, out val, "volume_dey");
+                    return_vale_.Add(val);
+                    all_.Get_Volume_Total_dB(n, out val, "volume_night");
+                    return_vale_.Add(val);
+                }
+                else
+                {
+                    all_.Get_Volume_Total_dB(n, out val);
+                    return_vale_.Add(val);
+                }
             }
             return return_vale_;
 

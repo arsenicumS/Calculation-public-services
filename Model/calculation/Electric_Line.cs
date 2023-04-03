@@ -88,6 +88,9 @@ namespace Calculation_public_services
                      ((volume_dey - totol_dey), Convert.ToDecimal(dict_dey["tariff"]));
             payment_night = Volume.Calculation_General
                      ((volume_night - totol_night), Convert.ToDecimal(dict_night["tariff"]));
+
+            payment_dey = Math.Round(payment_dey, 2);
+            payment_night = Math.Round(payment_night, 2);
         }
        
     }
