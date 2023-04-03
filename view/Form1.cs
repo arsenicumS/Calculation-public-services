@@ -16,8 +16,7 @@ namespace Calculation_public_services
         View_model view_Model = new View_model();
 
         public List<string> vale;
-        private string name_period;
-        private int caunt;
+        private string name_period;        
 
         public Form1()
         {
