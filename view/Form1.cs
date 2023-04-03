@@ -21,6 +21,7 @@ namespace Calculation_public_services
         public Form1()
         {
             InitializeComponent();
+            
         }
         private void checkBoxCold_CheckedChanged(object sender, EventArgs e)
         {
@@ -63,20 +64,20 @@ namespace Calculation_public_services
                                         "Предыдущий период в обеме по услугам:\n" +
                                         "ХВС : {0}m3\n" +
                                         "ГВС : {1}m3\n" +
-                                        "ЭЭ_Д: {2}кВт.ч" +
-                                        "ЭЭ_Н: {3}кВт.ч", val[0], val[2], val[1], val[3]);
+                                        "ЭЭ_Д: {2}кВт.ч\n" +
+                                        "ЭЭ_Н: {3}кВт.ч", val[0], val[3], val[1], val[2]);
 
                 if (checkBoxCold.Checked && val[0] > Convert.ToDecimal(TextBoxCold.Text)) 
                 {
                     TextBoxRezult.Text = "Неверные показания ХВС пожалуйста введите коректные данные";
                 }
                 
-                else if  (checkBoxHot.Checked && val[2] > Convert.ToDecimal(TextBoxHot.Text)) {
+                else if  (checkBoxHot.Checked && val[3] > Convert.ToDecimal(TextBoxHot.Text)) {
                     TextBoxRezult.Text = "Неверные показания ГВС пожалуйста введите коректные данные";
                 }
                 
                 else if( val[1] > Convert.ToDecimal(TextBoxElectric.Text) ||
-                    val[3] > Convert.ToDecimal(TextBoxElectric_night.Text))
+                    val[2] > Convert.ToDecimal(TextBoxElectric_night.Text))
                 {
                     TextBoxRezult.Text = "Неверные показания ЭЭ пожалуйста введите коректные данные";
                 }
@@ -87,8 +88,8 @@ namespace Calculation_public_services
                 labelInfo.Text = string.Format("Введенные показания долны быть больше предыдущих\n" +
                                     "Предыдущий период в обеме по услугам:\n" +
                                     "ХВС: {0}m3\n" +
-                                    "ГВС: {1}m3\n" +
-                                    "ЭЭ : {2}кВт.ч", val[0], val[2], val[1]);
+                                    "ГВС: {2}m3\n" +
+                                    "ЭЭ : {1}кВт.ч", val[0], val[1], val[2]);
 
                 if (checkBoxCold.Checked && val[0] > Convert.ToDecimal(TextBoxCold.Text))
                 {

@@ -124,7 +124,7 @@ namespace Calculation_public_services
             {
                 decimal val = 0;
                 All_Volume all_ = new All_Volume(n);
-                if (n == 2 && electric_night!=null)
+                if (n == 2 && caunter_electric)
                 {
                     all_.Get_Volume_Total_dB(n, out val, "volume_dey");
                     return_vale_.Add(val);
