@@ -385,7 +385,7 @@
             this.Controls.Add(this.groupBoxSet);
             this.Controls.Add(this.buttonNext);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Расчет начислений по периодам";
             this.groupBoxSet.ResumeLayout(false);
             this.groupBoxSet.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_people)).EndInit();

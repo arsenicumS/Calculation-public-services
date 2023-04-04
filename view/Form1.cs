@@ -57,54 +57,21 @@ namespace Calculation_public_services
             bool valid = false;
            
             List<decimal> val = view_Model.Period_in_dB(name_period, (int)numeric_people.Value);
-
+            String_old_period(val);
+            
             if (checkBoxElectric.Checked)
             {
-                labelInfo.Text = string.Format("Введенные показания долны быть больше предыдущих\n" +
-                                        "Предыдущий период в обеме по услугам:\n" +
-                                        "ХВС : {0}m3\n" +
-                                        "ГВС : {1}m3\n" +
-                                        "ЭЭ_Д: {2}кВт.ч\n" +
-                                        "ЭЭ_Н: {3}кВт.ч", val[0], val[3], val[1], val[2]);
-
-                if (checkBoxCold.Checked && val[0] > Convert.ToDecimal(TextBoxCold.Text)) 
-                {
-                    TextBoxRezult.Text = "Неверные показания ХВС пожалуйста введите коректные данные";
-                }
-                
-                else if  (checkBoxHot.Checked && val[3] > Convert.ToDecimal(TextBoxHot.Text)) {
-                    TextBoxRezult.Text = "Неверные показания ГВС пожалуйста введите коректные данные";
-                }
-                
-                else if( val[1] > Convert.ToDecimal(TextBoxElectric.Text) ||
-                    val[2] > Convert.ToDecimal(TextBoxElectric_night.Text))
-                {
-                    TextBoxRezult.Text = "Неверные показания ЭЭ пожалуйста введите коректные данные";
-                }
+                if (checkBoxCold.Checked && val[0] > Convert.ToDecimal(TextBoxCold.Text)) String_error("ХВС");
+                else if (checkBoxHot.Checked && val[3] > Convert.ToDecimal(TextBoxHot.Text))String_error("ГВС");
+                else if (val[1] > Convert.ToDecimal(TextBoxElectric.Text) ||
+                    val[2] > Convert.ToDecimal(TextBoxElectric_night.Text)) String_error("ЭЭ");
                 else valid = true;
             }
             else 
             {
-                labelInfo.Text = string.Format("Введенные показания долны быть больше предыдущих\n" +
-                                    "Предыдущий период в обеме по услугам:\n" +
-                                    "ХВС: {0}m3\n" +
-                                    "ГВС: {2}m3\n" +
-                                    "ЭЭ : {1}кВт.ч", val[0], val[1], val[2]);
-
-                if (checkBoxCold.Checked && val[0] > Convert.ToDecimal(TextBoxCold.Text))
-                {
-                    TextBoxRezult.Text = "Неверные показания ХВС пожалуйста введите коректные данные";
-                }
-
-                else if (checkBoxHot.Checked && val[2] > Convert.ToDecimal(TextBoxHot.Text))
-                {
-                    TextBoxRezult.Text = "Неверные показания ГВС пожалуйста введите коректные данные";
-                }
-
-                else if (val[1] > Convert.ToDecimal(TextBoxElectric.Text))
-                {
-                    TextBoxRezult.Text = "Неверные показания ЭЭ пожалуйста введите коректные данные";
-                }
+                if (checkBoxCold.Checked && val[0] > Convert.ToDecimal(TextBoxCold.Text)) String_error("ХВС");
+                else if (checkBoxHot.Checked && val[2] > Convert.ToDecimal(TextBoxHot.Text))String_error("ГВС");
+                else if (val[1] > Convert.ToDecimal(TextBoxElectric.Text))String_error("ЭЭ");                
                 else valid = true;
             }
             if (valid)
@@ -125,38 +92,20 @@ namespace Calculation_public_services
                 var electric_total = view_Model.Electric_total;
 
                 TextBoxRezult.Text ="\t\t\t" + name_period+"\n\n";
-                TextBoxRezult.Text +=
-                     RezultString(cold["Name"], cold["Volume"], cold["Pyment"], cold["metric"]) + "\n";
+                TextBoxRezult.Text +=RezultString(cold) + "\n";
+                TextBoxRezult.Text +=RezultString(hot) + RezultString(hot1) + "\n";
 
-
-
-                TextBoxRezult.Text +=
-                     RezultString(hot["Name"], hot["Volume"], hot["Pyment"], hot["metric"]) +
-                         RezultString(hot1["Name"], hot1["Volume"], hot1["Pyment"], hot1["metric"]) + "\n";
-
-                TextBoxRezult.Text +=
-                    RezultString(electric["Name"], electric["Volume"], electric["Pyment"], electric["metric"]);
+                TextBoxRezult.Text +=RezultString(electric);
                 if (electric_night != null)
                 {
-
-                    TextBoxRezult.Text += RezultString(electric_night["Name"], electric_night["Volume"], electric_night["Pyment"], electric_night["metric"]) + "\n" +
-                    RezultString(electric_total["Name"], electric_total["Volume"],
-                             electric_total["Pyment"], electric_total["metric"]) +
+                    TextBoxRezult.Text += RezultString(electric_night) + "\n" + RezultString(electric_total) +
                     string.Format("\n\tИтого к оплате: {0}руб",
-                            Pay_Sum(cold["Pyment"], hot["Pyment"], hot1["Pyment"], electric["Pyment"], electric_night["Pyment"]));
+                            Pay_Sum(cold, hot, hot1, electric, electric_night));
                 }
                 else
                 {
-                    TextBoxRezult.Text += string.Format("\n\tИтого к оплате: {0}руб",
-                            Pay_Sum(cold["Pyment"], hot["Pyment"], hot1["Pyment"], electric["Pyment"]));
-
-
-                    labelInfo.Text = string.Format("Введенные показания долны быть больше предыдущих\n" +
-                                        "Предыдущий период в обеме по услугам:\n" +
-                                        "ХВС: {0}m3\n" +
-                                        "ГВС: {1}m3\n" +
-                                        "ЭЭ : {2}кВт.ч", val[0], val[2], val[1]);
-
+                    TextBoxRezult.Text +=string.Format("\n\tИтого к оплате: {0}руб",
+                        Pay_Sum(cold, hot, hot1, electric));
                 }
 
                 button1.Visible = true;
@@ -167,24 +116,49 @@ namespace Calculation_public_services
             }
         }
 
-        private string RezultString(string name,string vale,string payment = "",string metric = "")
+        private void String_error(string name_servis)
         {
-            string n = "";
-            if (name.Length < 10) 
-            {
-                for (int i = 0; i < 10 - name.Length; i++) n += "_";
-            }
-            name = n+name ;
-            
-            return string.Format("{0,-20}\t{1,-8:F5} {3:5}\t{2,20:C2}руб\n",name,vale,payment,metric);
+            TextBoxRezult.Text = $"Неверные показания {name_servis} пожалуйста введите коректные данные";
         }
 
-        private decimal Pay_Sum(params string[] operand)
+        private void String_old_period(List<decimal> val)
+        {
+            labelInfo.Text = string.Format("Введенные показания долны быть больше предыдущих\n" +
+                                        "Предыдущий период в объеме по услугам:\n" +
+                                        "ХВС : {0}m3\n", val[0]);
+           
+            if (val.Count > 3)
+            {
+                labelInfo.Text += string.Format (
+                    "ГВС : {0}m3\n" +
+                    "ЭЭ_Д: {1}кВт.ч\n" +
+                    "ЭЭ_Н: {2}кВт.ч",val[3], val[1], val[2]);
+            }
+
+            else labelInfo.Text += string.Format(
+                "ГВС: {2}m3\n" +
+                "ЭЭ : {1}кВт.ч", val[0], val[1], val[2]);
+        }
+
+        private string RezultString(Dictionary<string,string> servis)
+        {
+            string n = "";
+            if (servis["Name"].Length < 10) 
+            {
+                for (int i = 0; i < 10 - servis["Name"].Length; i++) n += "_";
+            }
+            servis["Name"] = n+servis["Name"] ;
+            
+            return string.Format("{0,-20}\t{1,-8:F5} {3:5}\t{2,20:C2}руб\n",
+                servis["Name"], servis["Volume"], servis["Pyment"], servis["metric"]);
+        }
+
+        private decimal Pay_Sum(params Dictionary<string, string>[] operand)
         {
             decimal result = 0;
             foreach (var n in operand)
             {
-                var k = Convert.ToDecimal(n);
+                var k = Convert.ToDecimal(n["Pyment"]);
                 result += k;
             }
             return result;
