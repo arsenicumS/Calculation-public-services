@@ -144,17 +144,6 @@ namespace Calculation_public_services
                              electric_total["Pyment"], electric_total["metric"]) +
                     string.Format("\n\tИтого к оплате: {0}руб",
                             Pay_Sum(cold["Pyment"], hot["Pyment"], hot1["Pyment"], electric["Pyment"], electric_night["Pyment"]));
-
-
-
-                    labelInfo.Text = string.Format("Введенные показания долны быть больше предыдущих\n" +
-                                        "Предыдущий период в обеме по услугам:\n" +
-                                        "ХВС : {0}m3\n" +
-                                        "ГВС : {1}m3\n" +
-                                        "ЭЭ_Д: {2}кВт.ч" +
-                                        "ЭЭ_Н: {3}кВт.ч", val[0], val[2], val[1], val[3]);
-
-
                 }
                 else
                 {
