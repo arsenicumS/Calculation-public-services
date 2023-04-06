@@ -32,7 +32,7 @@ namespace Calculation_public_services
             rezult = Volume.Set_view_date
                 (volume_in_month - totol_val, (string)Volume.dict_all["Name"], pyment_Water, (string)Volume.dict_all["metric"]);
 
-            Volume.Set_Volume_Totol_dB(ID, Convert.ToString(volume_in_month));
+            Volume.Set_Volume_Totol_dB(ID, volume_in_month);
             Volume.Set_vale_period(ID, volume_in_month - totol_val, pyment_Water);
         }
 

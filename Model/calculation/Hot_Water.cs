@@ -56,7 +56,7 @@ namespace Calculation_public_services
             rezult1 = Volume.Set_view_date
                 (volume_hot, (string)dict_hot["Name"],pyment_Hot, (string)dict_hot["metric"]);
 
-            Volume.Set_Volume_Totol_dB(ID, Convert.ToString(volume_in_month));
+            Volume.Set_Volume_Totol_dB(ID, volume_in_month);
 
             Volume.Set_vale_period(ID, volume_in_month - totol_val, pyment_Water);
             Volume.Set_vale_period(id_hot, volume_hot, pyment_Hot);

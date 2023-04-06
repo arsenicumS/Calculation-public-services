@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ConsoleTables;
 
 namespace Calculation_public_services
 {
@@ -63,8 +64,8 @@ namespace Calculation_public_services
             {
                 if (checkBoxCold.Checked && val[0] > Convert.ToDecimal(TextBoxCold.Text)) String_error("ХВС");
                 else if (checkBoxHot.Checked && val[3] > Convert.ToDecimal(TextBoxHot.Text))String_error("ГВС");
-                else if (val[1] > Convert.ToDecimal(TextBoxElectric.Text) ||
-                    val[2] > Convert.ToDecimal(TextBoxElectric_night.Text)) String_error("ЭЭ");
+                else if (val[4] > Convert.ToDecimal(TextBoxElectric.Text) ||
+                    val[5] > Convert.ToDecimal(TextBoxElectric_night.Text)) String_error("ЭЭ");
                 else valid = true;
             }
             else 
@@ -127,12 +128,12 @@ namespace Calculation_public_services
                                         "Предыдущий период в объеме по услугам:\n" +
                                         "ХВС : {0}m3\n", val[0]);
            
-            if (val.Count > 3)
+            if (checkBoxElectric.Checked)
             {
                 labelInfo.Text += string.Format (
                     "ГВС : {0}m3\n" +
                     "ЭЭ_Д: {1}кВт.ч\n" +
-                    "ЭЭ_Н: {2}кВт.ч",val[3], val[1], val[2]);
+                    "ЭЭ_Н: {2}кВт.ч",val[3], val[4], val[5]);
             }
 
             else labelInfo.Text += string.Format(
@@ -149,7 +150,7 @@ namespace Calculation_public_services
             }
             servis["Name"] = n+servis["Name"] ;
             
-            return string.Format("{0,-20}\t{1,-8:F5} {3:5}\t{2,20:C2}руб\n",
+            return string.Format("{0,-25}{1,8:F5} {3:5}{2,15:C2}руб\n",
                 servis["Name"], servis["Volume"], servis["Pyment"], servis["metric"]);
         }
 
@@ -177,7 +178,7 @@ namespace Calculation_public_services
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             // Создать шрифт myFont
-            Font myFont = new Font("Arial", 14, FontStyle.Regular, GraphicsUnit.Pixel);
+            Font myFont = new Font("Lucida Console", 18, FontStyle.Regular, GraphicsUnit.Pixel);
 
             string curLine; // текущая выводимая строка
 
@@ -245,6 +246,51 @@ namespace Calculation_public_services
             name_period = "Period_"+TextBox_period.Text ;
             button_start.Visible= true;
             button_start.Enabled=true;
+        }
+
+        private void Page_Click(object sender, EventArgs e)
+        {
+            List<object>[]info;
+            List<object>[]olde;
+            string[] list_table;
+
+            view_Model.Update_info_table("TestDB", "Tariff_Info", out info );
+            view_Model.Update_info_table("TestDB", "Totol_valume", out olde);
+            view_Model.Get_Period_table(out list_table);
+
+            var table_olde = new ConsoleTable("Услуга","Объем за весь период", "Ед.изм");
+            var table_info = new ConsoleTable("Услуга","Тариф руб/ед.изм","Норматив","Ед.изм");
+
+            for (int i = 0;i< info.Length;i++) 
+            {
+                if (i < olde.Length)
+                {                    
+                    table_olde.AddRow(olde[i][1], olde[i][2],info[i][4]);
+                }
+                string s = $"{info[i][2]:C2}";                
+                table_info.AddRow(info[i][1], s, info[i][3], info[i][4]);
+                
+            }
+            TextBox_tariff_page2.Text = table_info.ToMarkDownString();
+            TextBox_olde_page2.Text = table_olde.ToMarkDownString();
+            listBox_period_page2.Items.Clear();
+            listBox_period_page2.Items.AddRange(list_table);
+
+
+        }
+
+        private void listBox_period_page2_Click(object sender, EventArgs e)
+        {
+            List<object>[] tab_period;
+            var table_period = new ConsoleTable("Услуга",  "Ед.изм","Объем","Тариф ", "Услуга в руб");
+            var table_name =listBox_period_page2.SelectedItem.ToString();
+            view_Model.Update_info_table("Month_1", table_name, out tab_period);
+            foreach(var row in tab_period) 
+            {
+                table_period.AddRow(row[1], row[2], row[3], row[4], row[5]);
+            }
+
+            TextBox_Period_page2.Text = table_period.ToMinimalString();
         }
     }
 }

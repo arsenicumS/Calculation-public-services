@@ -26,21 +26,21 @@ namespace Calculation_public_services
 
         public Electric_Line(decimal volume_in_month, out Dictionary<string, string> rezult)    // Если счетчик однотарифный
         {
-            dict_dey = Volume.Get_Tariff_info_dB(ID);
-            Volume.Get_Volume_Total_dB(ID, out totol_val, "volume");
+            dict_dey = Volume.Get_Tariff_info_dB(ID); // словарь с справочной информацией из Д\Б
+            Volume.Get_Volume_Total_dB(ID, out totol_val); // Получение значения общего обема за все периоды
 
             
 
-                pyment_Electric = Volume.Get_Payment(Volume.Tariff, volume_in_month);
-                volume_in_summ = Volume.Volume_in_month;
+                pyment_Electric = Volume.Get_Payment(Volume.Tariff, volume_in_month); // Расчет по услуге
+                volume_in_summ = Volume.Volume_in_month; // получение значение обЪема по услуге
 
                 rezult = Volume.Set_view_date
                     (volume_in_month - totol_val, (string)dict_dey["Name"], 
                                     pyment_Electric, (string)dict_dey["metric"]);
 
-                Volume.Set_Volume_Totol_dB(ID, Convert.ToString(volume_in_month));
+                Volume.Set_Volume_Totol_dB(ID, volume_in_month);//обновление общего объема 
 
-            Volume.Set_vale_period(ID, volume_in_month - totol_val, pyment_Electric);
+            Volume.Set_vale_period(ID, volume_in_month - totol_val, pyment_Electric);//объм за период
             
 
         }
@@ -62,8 +62,8 @@ namespace Calculation_public_services
                 rezult_totol = Volume.Set_view_date(volume_in_summ,
                             "Электро энергия общ.", pay_dey + pay_night, (string)dict_dey["metric"]);
 
-                Volume.Set_Volume_Totol_dB(ID, Convert.ToString(volume_dey), "volume_dey");
-                Volume.Set_Volume_Totol_dB(ID, Convert.ToString(volume_night), "volume_night");
+                Volume.Set_Volume_Totol_dB(id_dey, volume_dey);
+                Volume.Set_Volume_Totol_dB(id_night, volume_night);
 
             Volume.Set_vale_period(id_dey,vol_dey, pay_dey);
             Volume.Set_vale_period(id_night, vol_night, pay_night);
@@ -74,8 +74,8 @@ namespace Calculation_public_services
             out decimal payment_dey,out decimal payment_night) 
         {
                
-            Volume.Get_Volume_Total_dB(ID ,out totol_dey, "volume_dey");  //получаем из бызы данных сумму предыдущих показаний
-            Volume.Get_Volume_Total_dB(ID, out totol_night, "volume_night");
+            Volume.Get_Volume_Total_dB(id_dey ,out totol_dey);  //получаем из бызы данных сумму предыдущих показаний
+            Volume.Get_Volume_Total_dB(id_night, out totol_night);
                         
             vol_dey = volume_dey - totol_dey;
             vol_night = volume_night - totol_night;

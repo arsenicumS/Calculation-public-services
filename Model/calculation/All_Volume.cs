@@ -35,7 +35,7 @@ namespace Calculation_public_services
                 
         public Dictionary<string, object> Get_Tariff_info_dB(int id)=>dB.Get_Date_Tariff_info(id);
 
-        public void Set_Volume_Totol_dB(int id,string volum,string name_column = "volume") => 
+        public void Set_Volume_Totol_dB(int id,decimal volum,string name_column = "volume") => 
                     dB.Set_Date("Totol_valume", id,name_column,volum) ;
 
         public void Get_Volume_Total_dB(int id, out decimal total_volume,string name_column = "volume" ) 

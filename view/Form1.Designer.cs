@@ -29,7 +29,21 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.buttonNext = new System.Windows.Forms.Button();
+            this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+            this.printDialog1 = new System.Windows.Forms.PrintDialog();
+            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.Page = new System.Windows.Forms.TabControl();
+            this.Page1 = new System.Windows.Forms.TabPage();
+            this.TextBox_period = new System.Windows.Forms.MaskedTextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button_start = new System.Windows.Forms.Button();
+            this.groupBoxGet = new System.Windows.Forms.GroupBox();
+            this.TextBoxRezult = new System.Windows.Forms.RichTextBox();
             this.groupBoxSet = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.numeric_people = new System.Windows.Forms.NumericUpDown();
@@ -45,35 +59,171 @@
             this.checkBoxElectric = new System.Windows.Forms.CheckBox();
             this.checkBoxHot = new System.Windows.Forms.CheckBox();
             this.checkBoxCold = new System.Windows.Forms.CheckBox();
-            this.groupBoxGet = new System.Windows.Forms.GroupBox();
-            this.TextBoxRezult = new System.Windows.Forms.RichTextBox();
-            this.button_start = new System.Windows.Forms.Button();
-            this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
-            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
-            this.printDialog1 = new System.Windows.Forms.PrintDialog();
-            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.TextBox_period = new System.Windows.Forms.MaskedTextBox();
+            this.buttonNext = new System.Windows.Forms.Button();
+            this.Page2 = new System.Windows.Forms.TabPage();
+            this.TextBox_olde_page2 = new System.Windows.Forms.RichTextBox();
+            this.TextBox_Period_page2 = new System.Windows.Forms.RichTextBox();
+            this.listBox_period_page2 = new System.Windows.Forms.ListBox();
+            this.TextBox_tariff_page2 = new System.Windows.Forms.RichTextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.Page.SuspendLayout();
+            this.Page1.SuspendLayout();
+            this.groupBoxGet.SuspendLayout();
             this.groupBoxSet.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_people)).BeginInit();
-            this.groupBoxGet.SuspendLayout();
+            this.Page2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // buttonNext
+            // pageSetupDialog1
             // 
-            this.buttonNext.Location = new System.Drawing.Point(669, 387);
-            this.buttonNext.Name = "buttonNext";
-            this.buttonNext.Size = new System.Drawing.Size(119, 37);
-            this.buttonNext.TabIndex = 2;
-            this.buttonNext.Tag = "Button_Next";
-            this.buttonNext.Text = "Следующий расчетный период";
-            this.buttonNext.UseVisualStyleBackColor = true;
-            this.buttonNext.Visible = false;
-            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
+            this.pageSetupDialog1.Document = this.printDocument1;
+            // 
+            // printDocument1
+            // 
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            // 
+            // printDialog1
+            // 
+            this.printDialog1.AllowSomePages = true;
+            this.printDialog1.Document = this.printDocument1;
+            this.printDialog1.UseEXDialog = true;
+            // 
+            // printPreviewDialog1
+            // 
+            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewDialog1.Document = this.printDocument1;
+            this.printPreviewDialog1.Enabled = true;
+            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
+            this.printPreviewDialog1.Name = "printPreviewDialog1";
+            this.printPreviewDialog1.Visible = false;
+            // 
+            // Page
+            // 
+            this.Page.Controls.Add(this.Page1);
+            this.Page.Controls.Add(this.Page2);
+            this.Page.Location = new System.Drawing.Point(1, -1);
+            this.Page.Name = "Page";
+            this.Page.SelectedIndex = 0;
+            this.Page.Size = new System.Drawing.Size(797, 451);
+            this.Page.TabIndex = 0;
+            this.Page.Click += new System.EventHandler(this.Page_Click);
+            // 
+            // Page1
+            // 
+            this.Page1.Controls.Add(this.TextBox_period);
+            this.Page1.Controls.Add(this.label2);
+            this.Page1.Controls.Add(this.button4);
+            this.Page1.Controls.Add(this.button3);
+            this.Page1.Controls.Add(this.button2);
+            this.Page1.Controls.Add(this.button1);
+            this.Page1.Controls.Add(this.button_start);
+            this.Page1.Controls.Add(this.groupBoxGet);
+            this.Page1.Controls.Add(this.groupBoxSet);
+            this.Page1.Controls.Add(this.buttonNext);
+            this.Page1.Location = new System.Drawing.Point(4, 22);
+            this.Page1.Name = "Page1";
+            this.Page1.Padding = new System.Windows.Forms.Padding(3);
+            this.Page1.Size = new System.Drawing.Size(789, 425);
+            this.Page1.TabIndex = 0;
+            this.Page1.Text = "Расчет";
+            this.Page1.UseVisualStyleBackColor = true;
+            // 
+            // TextBox_period
+            // 
+            this.TextBox_period.Location = new System.Drawing.Point(150, 175);
+            this.TextBox_period.Mask = "00_00_0000";
+            this.TextBox_period.Name = "TextBox_period";
+            this.TextBox_period.PromptChar = '.';
+            this.TextBox_period.Size = new System.Drawing.Size(100, 20);
+            this.TextBox_period.TabIndex = 22;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 180);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(131, 13);
+            this.label2.TabIndex = 21;
+            this.label2.Text = "Введите период расчета";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(256, 173);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(101, 23);
+            this.button4.TabIndex = 20;
+            this.button4.Text = "задать период";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button_set_period);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(521, 244);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(108, 49);
+            this.button3.TabIndex = 19;
+            this.button3.Text = "Предварительный просмотр";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Visible = false;
+            this.button3.Click += new System.EventHandler(this.button_Preview_Dialog);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(521, 175);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(108, 23);
+            this.button2.TabIndex = 18;
+            this.button2.Text = "Печать";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
+            this.button2.Click += new System.EventHandler(this.button_Print);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(521, 204);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(108, 34);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "Настройка страницы";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button_Setup);
+            // 
+            // button_start
+            // 
+            this.button_start.Location = new System.Drawing.Point(707, 175);
+            this.button_start.Name = "button_start";
+            this.button_start.Size = new System.Drawing.Size(75, 23);
+            this.button_start.TabIndex = 16;
+            this.button_start.Text = "Расчитать";
+            this.button_start.UseVisualStyleBackColor = true;
+            this.button_start.Visible = false;
+            this.button_start.Click += new System.EventHandler(this.button_start_Click);
+            // 
+            // groupBoxGet
+            // 
+            this.groupBoxGet.Controls.Add(this.TextBoxRezult);
+            this.groupBoxGet.Location = new System.Drawing.Point(6, 218);
+            this.groupBoxGet.Name = "groupBoxGet";
+            this.groupBoxGet.Size = new System.Drawing.Size(508, 207);
+            this.groupBoxGet.TabIndex = 15;
+            this.groupBoxGet.TabStop = false;
+            this.groupBoxGet.Tag = "GroupBox_Get";
+            this.groupBoxGet.Text = "Расчет по предоставленным показаниям";
+            // 
+            // TextBoxRezult
+            // 
+            this.TextBoxRezult.Font = new System.Drawing.Font("Lucida Console", 8.25F);
+            this.TextBoxRezult.Location = new System.Drawing.Point(9, 19);
+            this.TextBoxRezult.Name = "TextBoxRezult";
+            this.TextBoxRezult.Size = new System.Drawing.Size(493, 182);
+            this.TextBoxRezult.TabIndex = 7;
+            this.TextBoxRezult.Tag = "rezult";
+            this.TextBoxRezult.Text = "";
             // 
             // groupBoxSet
             // 
@@ -91,10 +241,10 @@
             this.groupBoxSet.Controls.Add(this.checkBoxElectric);
             this.groupBoxSet.Controls.Add(this.checkBoxHot);
             this.groupBoxSet.Controls.Add(this.checkBoxCold);
-            this.groupBoxSet.Location = new System.Drawing.Point(12, 12);
+            this.groupBoxSet.Location = new System.Drawing.Point(6, -1);
             this.groupBoxSet.Name = "groupBoxSet";
             this.groupBoxSet.Size = new System.Drawing.Size(776, 170);
-            this.groupBoxSet.TabIndex = 3;
+            this.groupBoxSet.TabIndex = 14;
             this.groupBoxSet.TabStop = false;
             this.groupBoxSet.Tag = "GroupBox_Set";
             this.groupBoxSet.Text = "Передача Показаний";
@@ -252,179 +402,159 @@
             this.checkBoxCold.UseVisualStyleBackColor = true;
             this.checkBoxCold.CheckedChanged += new System.EventHandler(this.checkBoxCold_CheckedChanged);
             // 
-            // groupBoxGet
+            // buttonNext
             // 
-            this.groupBoxGet.Controls.Add(this.TextBoxRezult);
-            this.groupBoxGet.Location = new System.Drawing.Point(12, 231);
-            this.groupBoxGet.Name = "groupBoxGet";
-            this.groupBoxGet.Size = new System.Drawing.Size(508, 207);
-            this.groupBoxGet.TabIndex = 4;
-            this.groupBoxGet.TabStop = false;
-            this.groupBoxGet.Tag = "GroupBox_Get";
-            this.groupBoxGet.Text = "Расчет по предоставленным показаниям";
+            this.buttonNext.Location = new System.Drawing.Point(663, 374);
+            this.buttonNext.Name = "buttonNext";
+            this.buttonNext.Size = new System.Drawing.Size(119, 37);
+            this.buttonNext.TabIndex = 13;
+            this.buttonNext.Tag = "Button_Next";
+            this.buttonNext.Text = "Следующий расчетный период";
+            this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Visible = false;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
-            // TextBoxRezult
+            // Page2
             // 
-            this.TextBoxRezult.Location = new System.Drawing.Point(9, 19);
-            this.TextBoxRezult.Name = "TextBoxRezult";
-            this.TextBoxRezult.Size = new System.Drawing.Size(493, 182);
-            this.TextBoxRezult.TabIndex = 7;
-            this.TextBoxRezult.Tag = "rezult";
-            this.TextBoxRezult.Text = "";
+            this.Page2.Controls.Add(this.label5);
+            this.Page2.Controls.Add(this.label4);
+            this.Page2.Controls.Add(this.label3);
+            this.Page2.Controls.Add(this.TextBox_olde_page2);
+            this.Page2.Controls.Add(this.TextBox_Period_page2);
+            this.Page2.Controls.Add(this.listBox_period_page2);
+            this.Page2.Controls.Add(this.TextBox_tariff_page2);
+            this.Page2.Location = new System.Drawing.Point(4, 22);
+            this.Page2.Name = "Page2";
+            this.Page2.Padding = new System.Windows.Forms.Padding(3);
+            this.Page2.Size = new System.Drawing.Size(789, 425);
+            this.Page2.TabIndex = 1;
+            this.Page2.Text = "Данные";
+            this.Page2.UseVisualStyleBackColor = true;
             // 
-            // button_start
+            // TextBox_olde_page2
             // 
-            this.button_start.Location = new System.Drawing.Point(713, 188);
-            this.button_start.Name = "button_start";
-            this.button_start.Size = new System.Drawing.Size(75, 23);
-            this.button_start.TabIndex = 5;
-            this.button_start.Text = "Расчитать";
-            this.button_start.UseVisualStyleBackColor = true;
-            this.button_start.Visible = false;
-            this.button_start.Click += new System.EventHandler(this.button_start_Click);
+            this.TextBox_olde_page2.Font = new System.Drawing.Font("Lucida Console", 8.25F);
+            this.TextBox_olde_page2.Location = new System.Drawing.Point(8, 43);
+            this.TextBox_olde_page2.Name = "TextBox_olde_page2";
+            this.TextBox_olde_page2.Size = new System.Drawing.Size(310, 124);
+            this.TextBox_olde_page2.TabIndex = 3;
+            this.TextBox_olde_page2.Text = "";
             // 
-            // pageSetupDialog1
+            // TextBox_Period_page2
             // 
-            this.pageSetupDialog1.Document = this.printDocument1;
+            this.TextBox_Period_page2.Font = new System.Drawing.Font("Lucida Console", 12.25F);
+            this.TextBox_Period_page2.Location = new System.Drawing.Point(8, 237);
+            this.TextBox_Period_page2.Name = "TextBox_Period_page2";
+            this.TextBox_Period_page2.Size = new System.Drawing.Size(759, 180);
+            this.TextBox_Period_page2.TabIndex = 2;
+            this.TextBox_Period_page2.Text = "";
             // 
-            // printDocument1
+            // listBox_period_page2
             // 
-            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            this.listBox_period_page2.FormattingEnabled = true;
+            this.listBox_period_page2.Location = new System.Drawing.Point(8, 173);
+            this.listBox_period_page2.Name = "listBox_period_page2";
+            this.listBox_period_page2.Size = new System.Drawing.Size(163, 56);
+            this.listBox_period_page2.TabIndex = 1;
+            this.listBox_period_page2.Click += new System.EventHandler(this.listBox_period_page2_Click);
             // 
-            // printDialog1
+            // TextBox_tariff_page2
             // 
-            this.printDialog1.AllowSomePages = true;
-            this.printDialog1.Document = this.printDocument1;
-            this.printDialog1.UseEXDialog = true;
+            this.TextBox_tariff_page2.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBox_tariff_page2.Location = new System.Drawing.Point(324, 43);
+            this.TextBox_tariff_page2.Name = "TextBox_tariff_page2";
+            this.TextBox_tariff_page2.Size = new System.Drawing.Size(459, 124);
+            this.TextBox_tariff_page2.TabIndex = 0;
+            this.TextBox_tariff_page2.Text = "";
             // 
-            // printPreviewDialog1
+            // label3
             // 
-            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
-            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
-            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
-            this.printPreviewDialog1.Document = this.printDocument1;
-            this.printPreviewDialog1.Enabled = true;
-            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
-            this.printPreviewDialog1.Name = "printPreviewDialog1";
-            this.printPreviewDialog1.Visible = false;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(101, 15);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(107, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "История показаний";
             // 
-            // button1
+            // label4
             // 
-            this.button1.Location = new System.Drawing.Point(527, 217);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 34);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Настройка страницы";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            this.button1.Click += new System.EventHandler(this.button_Setup);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(512, 15);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(134, 13);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Справочная информация";
             // 
-            // button2
+            // label5
             // 
-            this.button2.Location = new System.Drawing.Point(527, 188);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(108, 23);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Печать";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
-            this.button2.Click += new System.EventHandler(this.button_Print);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(527, 257);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(108, 49);
-            this.button3.TabIndex = 8;
-            this.button3.Text = "Предварительный просмотр";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Visible = false;
-            this.button3.Click += new System.EventHandler(this.button_Preview_Dialog);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(262, 186);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(101, 23);
-            this.button4.TabIndex = 10;
-            this.button4.Text = "задать период";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button_set_period);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 193);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(131, 13);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Введите период расчета";
-            // 
-            // TextBox_period
-            // 
-            this.TextBox_period.Location = new System.Drawing.Point(156, 188);
-            this.TextBox_period.Mask = "00_00_0000";
-            this.TextBox_period.Name = "TextBox_period";
-            this.TextBox_period.PromptChar = '.';
-            this.TextBox_period.Size = new System.Drawing.Size(100, 20);
-            this.TextBox_period.TabIndex = 12;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(177, 190);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(99, 13);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "История расчетов";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.TextBox_period);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button_start);
-            this.Controls.Add(this.groupBoxGet);
-            this.Controls.Add(this.groupBoxSet);
-            this.Controls.Add(this.buttonNext);
+            this.Controls.Add(this.Page);
             this.Name = "Form1";
             this.Text = "Расчет начислений по периодам";
+            this.Page.ResumeLayout(false);
+            this.Page1.ResumeLayout(false);
+            this.Page1.PerformLayout();
+            this.groupBoxGet.ResumeLayout(false);
             this.groupBoxSet.ResumeLayout(false);
             this.groupBoxSet.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_people)).EndInit();
-            this.groupBoxGet.ResumeLayout(false);
+            this.Page2.ResumeLayout(false);
+            this.Page2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button buttonNext;
-        private System.Windows.Forms.GroupBox groupBoxSet;
+        private System.Windows.Forms.PageSetupDialog pageSetupDialog1;
+        private System.Drawing.Printing.PrintDocument printDocument1;
+        private System.Windows.Forms.PrintDialog printDialog1;
+        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
+        private System.Windows.Forms.TabControl Page;
+        private System.Windows.Forms.TabPage Page1;
+        private System.Windows.Forms.MaskedTextBox TextBox_period;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button_start;
         private System.Windows.Forms.GroupBox groupBoxGet;
-        private System.Windows.Forms.CheckBox checkBoxElectric;
-        private System.Windows.Forms.CheckBox checkBoxHot;
-        private System.Windows.Forms.CheckBox checkBoxCold;
-        private System.Windows.Forms.Label labelInfo;
-        private System.Windows.Forms.MaskedTextBox TextBoxElectric;
-        private System.Windows.Forms.MaskedTextBox TextBoxHot;
-        private System.Windows.Forms.MaskedTextBox TextBoxCold;
         private System.Windows.Forms.RichTextBox TextBoxRezult;
+        private System.Windows.Forms.GroupBox groupBoxSet;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown numeric_people;
         private System.Windows.Forms.Label labelCold;
         private System.Windows.Forms.Label labelHot;
         private System.Windows.Forms.Label labelNight;
         private System.Windows.Forms.Label labelDey;
         private System.Windows.Forms.MaskedTextBox TextBoxElectric_night;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown numeric_people;
-        private System.Windows.Forms.Button button_start;
-        private System.Windows.Forms.PageSetupDialog pageSetupDialog1;
-        private System.Drawing.Printing.PrintDocument printDocument1;
-        private System.Windows.Forms.PrintDialog printDialog1;
-        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.MaskedTextBox TextBox_period;
+        private System.Windows.Forms.MaskedTextBox TextBoxElectric;
+        private System.Windows.Forms.MaskedTextBox TextBoxHot;
+        private System.Windows.Forms.MaskedTextBox TextBoxCold;
+        private System.Windows.Forms.Label labelInfo;
+        private System.Windows.Forms.CheckBox checkBoxElectric;
+        private System.Windows.Forms.CheckBox checkBoxHot;
+        private System.Windows.Forms.CheckBox checkBoxCold;
+        private System.Windows.Forms.Button buttonNext;
+        private System.Windows.Forms.TabPage Page2;
+        private System.Windows.Forms.ListBox listBox_period_page2;
+        private System.Windows.Forms.RichTextBox TextBox_tariff_page2;
+        private System.Windows.Forms.RichTextBox TextBox_olde_page2;
+        private System.Windows.Forms.RichTextBox TextBox_Period_page2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
     }
 }
 

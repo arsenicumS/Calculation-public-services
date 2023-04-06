@@ -120,15 +120,15 @@ namespace Calculation_public_services
         {
             List<decimal> return_vale_ = new List<decimal>{ };
 
-            for (var n = 1; n < 4; n++)
+            for (var n = 1; n < 6; n++)
             {
                 decimal val = 0;
                 All_Volume all_ = new All_Volume(n);
-                if (n == 2 && caunter_electric)
+                if (n == 4 ||n == 5 )
                 {
-                    all_.Get_Volume_Total_dB(n, out val, "volume_dey");
+                    all_.Get_Volume_Total_dB(n, out val);
                     return_vale_.Add(val);
-                    all_.Get_Volume_Total_dB(n, out val, "volume_night");
+                    all_.Get_Volume_Total_dB(n, out val);
                     return_vale_.Add(val);
                 }
                 else
@@ -140,7 +140,18 @@ namespace Calculation_public_services
             return return_vale_;
 
         }
+        
+        Maneger_DB dB = new Maneger_DB();
+        public void Update_info_table(string name_dB,string name_table,out List<object>[] list_info)=>
+            list_info = dB.Get_table_info(name_dB,name_table);
 
-
+        internal void Get_Period_table(out string[] list_table)
+        {
+            string [] list =dB.Get_table_name("Month_1");
+            string[] list_rez = new string[list.Length-1];
+            Array.Copy(list, 1, list_rez, 0, list.Length - 1);
+            list_table = list_rez;
+            
+        }
     }
 }

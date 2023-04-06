@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using MarkdownLog;
+using System;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.Entity;
 using System.Data.SQLite;
 using System.IO;
 
@@ -43,9 +47,12 @@ namespace Calculation_public_services
 
         public void Data_in_service(int id_service, decimal volume_in_month, decimal summa_in_service)
         {
+            var vale = Convert_Duble(volume_in_month);
+            var pay = Convert_Duble(summa_in_service);
+            
             Dictionary <string,object > dict = new Dictionary<string,object>();
             dict = Get_Date_Tariff_info (id_service);
-
+            var tar = Convert_Duble(dict["tariff"]);
             string table = tables[tables.Count - 1];
             using(SQLiteConnection Connect = new SQLiteConnection($"Data Source={name}; Version=3;"))// в строке указывается к какой базе подключаемся
             {
@@ -54,9 +61,9 @@ namespace Calculation_public_services
                     $"VALUES (" +
                     $"\"{dict["Name"]}\"," +
                     $"\"{dict["metric"]}\"," +
-                    $"\"{volume_in_month}\"," +
-                    $"\" {dict["tariff"]} \", " +
-                    $"\"{summa_in_service}\");";
+                    $"\"{vale:F5}\"," +
+                    $"\" {tar} \", " +
+                    $"\"{pay}\");";
 
                 Conect_table(commandText, Connect);
                 
@@ -105,14 +112,70 @@ namespace Calculation_public_services
             return date;
         }
 
-        public void Set_Date(string table, int id , string name, string vale) 
+        string Convert_Duble(object n) 
+        { 
+            var val = Convert.ToString(n).Split(',');
+            string s_vale = $"{val[0]}.{val[1]}";
+            return s_vale;        
+        }
+        public void Set_Date(string table, int id , string name, decimal vale) 
         {
-            string commandText = $"UPDATE {table} SET {name} = \"{vale}\" WHERE id = {id};";  
+            var s_vale = Convert_Duble(vale);
+            string commandText = $"UPDATE {table} SET {name} = \"{s_vale}\" WHERE id = {id};";  
             SQLiteConnection m_dbConnection = new SQLiteConnection($"Data Source={dB_info}; Version=3;");
             m_dbConnection.Open();
             SQLiteCommand command = new SQLiteCommand(commandText, m_dbConnection);
             command.ExecuteNonQuery();
             m_dbConnection.Close() ;
         }
+       
+        
+        
+        public List<object>[] Get_table_info(string dB ,string table) 
+        {
+            string commandText = $"SELECT * FROM {table};";
+
+            SQLiteConnection m_dbConnection = new SQLiteConnection($"Data Source=\"W:/all_files/programing/c#/site/c#site/Calculation public services/dataBase/{dB}.db\"; Version=3;");
+
+            m_dbConnection.Open();
+            SQLiteCommand command = new SQLiteCommand(commandText, m_dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            List<object>[] arr = new List<object>[1];
+            while (reader.Read())
+            {
+                Array.Resize(ref arr ,reader.StepCount);
+                List<object> list = new List<object>();
+                for (int i = 0; i < reader.FieldCount; i++) 
+                {
+                    var m = reader[i];
+                    list.Add(m);
+                }                
+                arr[arr.Length-1] = list;                
+            }
+            return arr;
+         }
+
+        internal string[] Get_table_name(string dB)
+        {
+            string commandText = $"SELECT name FROM sqlite_master WHERE type = \"table\";";
+
+            SQLiteConnection m_dbConnection = new SQLiteConnection($"Data Source=\"W:/all_files/programing/c#/site/c#site/Calculation public services/dataBase/{dB}.db\"; Version=3;");
+
+            m_dbConnection.Open();
+            SQLiteCommand command = new SQLiteCommand(commandText, m_dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            string[] arr = new string[1];
+            var caunt = 0;
+            while (reader.Read()) 
+            {               
+                Array.Resize(ref arr, reader.StepCount);
+                var m = reader["name"];
+                arr[arr.Length - 1] = (string)m;
+                caunt++;                
+            }
+            return arr;
+        }
+
     }
 }
