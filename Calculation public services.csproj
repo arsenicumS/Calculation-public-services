@@ -249,6 +249,12 @@
     <Content Include="about\результат уже во вкладке данные.png" />
     <Content Include="about\с приборами учета ХВС и ГВС .png" />
     <Content Include="about\Состояние программы перед начлом работы БД пусты.png" />
+    <Content Include="bin\Debug\x64\SQLite.Interop.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="bin\Debug\x86\SQLite.Interop.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="view\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -295,11 +301,7 @@
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\Debug\app.publish\" />
-    <Folder Include="bin\Debug\x64\" />
-    <Folder Include="bin\Debug\x86\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
