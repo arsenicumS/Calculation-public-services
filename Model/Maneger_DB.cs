@@ -119,10 +119,11 @@ namespace Calculation_public_services
         }
 
         string Convert_Duble(object n) 
-        { 
+        {
+            string.Format($"{0:0000,00}",n);
             var val = Convert.ToString(n).Split(',');
-            string s_vale = $"{val[0]}.{val[1]}";
-            return s_vale;        
+            if (val.Length > 1) { return  $"{val[0]}.{val[1]}"; }
+            else return n.ToString();        
         }
         public void Set_Date(string table, int id , string name, decimal vale) 
         {

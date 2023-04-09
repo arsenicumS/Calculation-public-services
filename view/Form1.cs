@@ -63,9 +63,9 @@ namespace Calculation_public_services
             if (checkBoxElectric.Checked)
             {
                 if (checkBoxCold.Checked && val[0] > Convert.ToDecimal(TextBoxCold.Text)) String_error("ХВС");
-                else if (checkBoxHot.Checked && val[3] > Convert.ToDecimal(TextBoxHot.Text))String_error("ГВС");
-                else if (val[4] > Convert.ToDecimal(TextBoxElectric.Text) ||
-                    val[5] > Convert.ToDecimal(TextBoxElectric_night.Text)) String_error("ЭЭ");
+                else if (checkBoxHot.Checked && val[2] > Convert.ToDecimal(TextBoxHot.Text))String_error("ГВС");
+                else if (val[3] > Convert.ToDecimal(TextBoxElectric.Text) ||
+                    val[4] > Convert.ToDecimal(TextBoxElectric_night.Text)) String_error("ЭЭ");
                 else valid = true;
             }
             else 
@@ -133,12 +133,12 @@ namespace Calculation_public_services
                 labelInfo.Text += string.Format (
                     "ГВС : {0}m3\n" +
                     "ЭЭ_Д: {1}кВт.ч\n" +
-                    "ЭЭ_Н: {2}кВт.ч",val[3], val[4], val[5]);
+                    "ЭЭ_Н: {2}кВт.ч",val[2], val[3], val[4]);
             }
 
             else labelInfo.Text += string.Format(
-                "ГВС: {2}m3\n" +
-                "ЭЭ : {1}кВт.ч", val[0], val[1], val[2]);
+                "ГВС: {0}m3\n" +
+                "ЭЭ : {1}кВт.ч", val[2], val[1]);
         }
 
         private string RezultString(Dictionary<string,string> servis)

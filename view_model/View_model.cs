@@ -120,15 +120,15 @@ namespace Calculation_public_services
         {
             List<decimal> return_vale_ = new List<decimal>{ };
 
-            for (var n = 1; n < 6; n++)
+            for (var n = 1; n <=4; n++)
             {
                 decimal val = 0;
                 All_Volume all_ = new All_Volume(n);
-                if (n == 4 ||n == 5 )
+                if (n == 4 )
                 {
                     all_.Get_Volume_Total_dB(n, out val);
                     return_vale_.Add(val);
-                    all_.Get_Volume_Total_dB(n, out val);
+                    all_.Get_Volume_Total_dB(n+1, out val);
                     return_vale_.Add(val);
                 }
                 else
