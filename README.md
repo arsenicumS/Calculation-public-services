@@ -5,4 +5,4 @@
 для работы программы необходимо поставить галочку в checkBox если имеется прибор учета и ввести показания приборов по услугам
 иначе указать количество людей проживающих в помещение на этот период 
 
-[scrin](https://github.com/arsenicumS/Calculation-public-services/blob/master/about/результат%20уже%20во%20вкладке%20данные.png)
+<img src="https://github.com/arsenicumS/Calculation-public-services/blob/master/about/результат%20уже%20во%20вкладке%20данные.png" width="1000">
