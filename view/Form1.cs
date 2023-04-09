@@ -57,7 +57,7 @@ namespace Calculation_public_services
         {
             bool valid = false;
            
-            List<decimal> val = view_Model.Period_in_dB(name_period, (int)numeric_people.Value);
+            List<decimal> val = view_Model.Period_in_dB("Month_1", name_period, (int)numeric_people.Value);
             String_old_period(val);
             
             if (checkBoxElectric.Checked)
@@ -105,7 +105,7 @@ namespace Calculation_public_services
                 }
                 else
                 {
-                    TextBoxRezult.Text +=string.Format("\n\tИтого к оплате: {0}руб",
+                    TextBoxRezult.Text +=string.Format("\n\nИтого к оплате: {0}руб",
                         Pay_Sum(cold, hot, hot1, electric));
                 }
 
@@ -150,7 +150,7 @@ namespace Calculation_public_services
             }
             servis["Name"] = n+servis["Name"] ;
             
-            return string.Format("{0,-25}{1,8:F5} {3:5}{2,15:C2}руб\n",
+            return string.Format("{0,-25}{1,-8:F5}{3:5}{2,15:C2}руб\n",
                 servis["Name"], servis["Volume"], servis["Pyment"], servis["metric"]);
         }
 

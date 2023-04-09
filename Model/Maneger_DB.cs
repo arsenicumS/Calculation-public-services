@@ -5,21 +5,27 @@ using System.Data.Common;
 using System.Data.Entity;
 using System.Data.SQLite;
 using System.IO;
-
-
+using System.Reflection;
 
 namespace Calculation_public_services
 {
+    
     internal class Maneger_DB
     {
+        static string appDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
         public string name;
         List<string> tables = new List<string>();
-        static string dB_info = "W:/all_files/programing/c#/site/c#site/Calculation public services/dataBase/TestDB.db";
+
+       static string relativePath = $"\\dataBase\\";
+       static string fullPath = appDir.Remove(appDir.Length - 10)+ relativePath;
+
+        static string dB_info =fullPath+"TestDB.db";
 
         public Maneger_DB() { }
         public Maneger_DB(string name )
         {
-            this.name = name ;
+            this.name = fullPath + name +".db" ;
 
             if (!File.Exists(name))
                 SQLiteConnection.CreateFile(name); // если базы данных нету, то создать базу данных
@@ -134,8 +140,8 @@ namespace Calculation_public_services
         public List<object>[] Get_table_info(string dB ,string table) 
         {
             string commandText = $"SELECT * FROM {table};";
-
-            SQLiteConnection m_dbConnection = new SQLiteConnection($"Data Source=\"W:/all_files/programing/c#/site/c#site/Calculation public services/dataBase/{dB}.db\"; Version=3;");
+                        
+            SQLiteConnection m_dbConnection = new SQLiteConnection($"Data Source={fullPath+dB+".db"}; Version=3;");
 
             m_dbConnection.Open();
             SQLiteCommand command = new SQLiteCommand(commandText, m_dbConnection);
@@ -160,7 +166,7 @@ namespace Calculation_public_services
         {
             string commandText = $"SELECT name FROM sqlite_master WHERE type = \"table\";";
 
-            SQLiteConnection m_dbConnection = new SQLiteConnection($"Data Source=\"W:/all_files/programing/c#/site/c#site/Calculation public services/dataBase/{dB}.db\"; Version=3;");
+            SQLiteConnection m_dbConnection = new SQLiteConnection($"Data Source={fullPath + dB + ".db"}; Version=3;");
 
             m_dbConnection.Open();
             SQLiteCommand command = new SQLiteCommand(commandText, m_dbConnection);

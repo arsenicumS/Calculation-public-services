@@ -109,7 +109,7 @@ namespace Calculation_public_services
             }
         }
 
-        public List<decimal> Period_in_dB(string name_period ,int people,string name_dB = "Month_1" ) 
+        public List<decimal> Period_in_dB(string name_dB,string name_period,int people) 
         {
             Overall_calculation overall_Calculation = new Overall_calculation(name_dB, people);
                 overall_Calculation.Period(name_period);

@@ -47,6 +47,7 @@ namespace Calculation_public_services
 
 
             volume_hot = ((volume_in_month - totol_val) * Convert.ToDecimal(dict_hot["norma"]));
+            volume_hot = Math.Round(volume_hot, 5);
             pyment_Hot = Convert.ToDecimal(dict_hot["tariff"])* volume_hot;
             pyment_Hot = Math.Round(pyment_Hot, 2);
             pyment_Water = Volume.Get_Payment(Volume.Tariff,volume_in_month);

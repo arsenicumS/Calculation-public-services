@@ -8,7 +8,7 @@
         public Overall_calculation(string name_dateB,int piople) 
         {
         
-            dB = new Maneger_DB($"W:/all_files/programing/c#/site/c#site/Calculation public services/dataBase/{name_dateB}.db");
+            dB = new Maneger_DB(name_dateB);
             n = piople;
         }
         public void Period(string name_period)=>dB.Cread_Table(name_period);
